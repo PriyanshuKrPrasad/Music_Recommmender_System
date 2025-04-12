@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Mood Bot</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      margin: 0;
+      padding: 30px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .chat-container {
+      background: #1e272e;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #f1c40f;
+    }
+
+    #chatbox {
+      background: #2f3640;
+      border-radius: 10px;
+      padding: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      scroll-behavior: smooth;
+    }
+
+    .chat-message {
+      margin: 8px 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      font-size: 0.95rem;
+      word-wrap: break-word;
+    }
+
+    .user {
+      background: #2980b9;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .bot {
+      background: #27ae60;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    #chatForm {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    #chatForm button,
+    #clearBtn {
+      padding: 10px 14px;
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    #chatForm button:hover,
+    #clearBtn:hover {
+      background-color: #d35400;
+    }
+
+    #clearBtn {
+      width: 100%;
+      margin-top: 15px;
+      background-color: #c0392b;
+    }
+
+    #clearBtn:hover {
+      background-color: #e74c3c;
+    }
+
+    button.choice-btn {
+      margin: 5px 0;
+      padding: 10px 18px;
+      background-color: #8e44ad;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    button.choice-btn:hover {
+      background-color: #9b59b6;
+    }
+
+    #songsList {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .song-card {
+      background: #34495e;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      color: white;
+      text-align: center;
+    }
+
+    .song-card iframe {
+      border-radius: 8px;
+      width: 100%;
+      height: 80px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .chat-container {
+        padding: 15px;
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      #userInput {
+        font-size: 0.95rem;
+      }
+
+      #chatForm button,
+      #clearBtn {
+        font-size: 0.95rem;
+      }
+
+      .chat-message {
+        font-size: 0.9rem;
+      }
+
+      .song-card iframe {
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>🎵 Music Mood Bot</h1>
+
+    <div id="chatbox"></div>
+
+    <form id="chatForm">
+      <input type="text" id="userInput" placeholder="How are you feeling today?" required />
+      <button type="submit">Send</button>
+    </form>
+
+    <button id="clearBtn">🧹 Clear Chat</button>
+
+    <div id="songsList"></div>
+  </div>
+
+  <!-- Script link -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+  <script>
+    (() => {
+      const clearBtn = document.getElementById('clearBtn');
+      clearBtn.addEventListener('click', () => {
+        document.getElementById('chatbox').innerHTML = '';
+        document.getElementById('songsList').innerHTML = '';
+      });
+    
+      const observer = new MutationObserver(() => {
+        document.getElementById('chatbox').scrollTop = document.getElementById('chatbox').scrollHeight;
+      });
+    
+      observer.observe(document.getElementById('chatbox'), { childList: true });
+    })();
+    </script>
+    
+
+  <noscript>
+    <style>
+      body {
+        display: block !important;
+        background: #c0392b;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+    <h2>⚠️ JavaScript is disabled. Please enable JavaScript to use the Music Mood Bot.</h2>
+  </noscript>
+</body>
+</html>
